@@ -1,0 +1,10 @@
+{
+  "root": "./fixtures",
+  "include-dirs": "src",
+  "exclude-dirs": "node_modules,.git,dist,build",
+  "file-extensions": "ts,tsx",
+  "print-tree": true,
+  "tree-files": true,
+  "print-loc": true,
+  "output-format": "text"
+}

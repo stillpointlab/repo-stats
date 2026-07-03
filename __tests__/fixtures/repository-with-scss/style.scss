@@ -1,0 +1,12 @@
+// SCSS file for testing
+$primary-color: #007bff;
+
+.button {
+  background-color: $primary-color;
+  padding: 10px 20px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}

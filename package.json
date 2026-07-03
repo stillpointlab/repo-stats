@@ -1,0 +1,54 @@
+{
+  "name": "@stillpointlab/repo-stats",
+  "version": "0.1.0",
+  "description": "Repository structure and line-count reporting CLI.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "repo-stats": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "schemas",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --check \"**/*.{ts,js,json,md}\"",
+    "format:fix": "prettier --write \"**/*.{ts,js,json,md}\"",
+    "test": "vitest run",
+    "dev": "tsx ./index.ts"
+  },
+  "dependencies": {
+    "fast-glob": "^3.3.3",
+    "yargs": "^18.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.0.1",
+    "@types/yargs": "^17.0.33",
+    "@typescript-eslint/eslint-plugin": "^8.62.0",
+    "@typescript-eslint/parser": "^8.62.0",
+    "eslint": "^10.6.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-import-x": "^4.17.0",
+    "globals": "^17.7.0",
+    "libxmljs2": "^0.37.0",
+    "prettier": "^3.5.3",
+    "tsx": "^4.22.5",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  }
+}

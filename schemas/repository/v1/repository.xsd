@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:spl="https://stillpointlab.com/schemas/repository/v1"
+           targetNamespace="https://stillpointlab.com/schemas/repository/v1"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified">
+
+  <!-- Root element -->
+  <xs:element name="repository" type="spl:RepositoryType"/>
+
+  <!-- Main repository type -->
+  <xs:complexType name="RepositoryType">
+    <xs:sequence>
+      <xs:element name="metadata" type="spl:MetadataType"/>
+      <xs:element name="directoryTree" type="spl:DirectoryTreeType" minOccurs="0"/>
+      <xs:element name="locSummary" type="spl:LocSummaryType" minOccurs="0"/>
+      <xs:element name="fileContents" type="spl:FileContentsType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Metadata type -->
+  <xs:complexType name="MetadataType">
+    <xs:sequence>
+      <xs:element name="root" type="xs:string"/>
+      <xs:element name="includeDirs" type="xs:string"/>
+      <xs:element name="excludeDirs" type="xs:string"/>
+      <xs:element name="fileExtensions" type="xs:string"/>
+      <xs:element name="maxDepth" type="xs:positiveInteger" minOccurs="0"/>
+      <xs:element name="includeFileContent" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Directory tree type -->
+  <xs:complexType name="DirectoryTreeType">
+    <xs:sequence>
+      <xs:element name="node" type="spl:NodeType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Node type -->
+  <xs:complexType name="NodeType">
+    <xs:sequence>
+      <xs:element name="node" type="spl:NodeType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="type" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="directory"/>
+          <xs:enumeration value="file"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="loc" type="xs:nonNegativeInteger"/>
+    <xs:attribute name="path" type="xs:string" use="required"/>
+    <xs:attribute name="relativePath" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <!-- LOC summary type -->
+  <xs:complexType name="LocSummaryType">
+    <xs:sequence>
+      <xs:element name="totalLoc" type="xs:nonNegativeInteger" minOccurs="0"/>
+      <xs:element name="locBreakdown" type="spl:LocBreakdownType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- LOC breakdown type -->
+  <xs:complexType name="LocBreakdownType">
+    <xs:sequence>
+      <xs:element name="extension" type="spl:ExtensionType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Extension type -->
+  <xs:complexType name="ExtensionType">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="lines" type="xs:nonNegativeInteger" use="required"/>
+    <xs:attribute name="files" type="xs:nonNegativeInteger" use="required"/>
+  </xs:complexType>
+
+  <!-- File contents type -->
+  <xs:complexType name="FileContentsType">
+    <xs:sequence>
+      <xs:element name="fileContent" type="spl:FileContentType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- File content type -->
+  <xs:complexType name="FileContentType" mixed="true">
+    <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="path" type="xs:string" use="required"/>
+  </xs:complexType>
+
+</xs:schema>
