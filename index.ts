@@ -4,7 +4,7 @@ import * as fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { glob } from 'fast-glob';
+import glob from 'fast-glob';
 
 import { parseArgs } from './cli.js';
 import { Formatter, OutputData } from './formatters/base.js';
