@@ -67,8 +67,7 @@ export class XmlFormatter implements Formatter {
 
   format(data: OutputData): string {
     let output = '<?xml version="1.0" encoding="UTF-8"?>\n';
-    output +=
-      '<?xml-stylesheet type="text/xsl" href="schemas/repository/v1/repository.xsl"?>\n';
+    output += '<?xml-stylesheet type="text/xsl" href="schemas/repository/v1/repository.xsl"?>\n';
     output += '<spl:repository xmlns:spl="https://stillpointlab.com/schemas/repository/v1">\n';
 
     // Metadata Section
