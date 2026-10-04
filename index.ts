@@ -4,7 +4,7 @@ import * as fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import glob from 'fast-glob';
+import { glob } from 'glob';
 
 import { parseArgs } from './cli.js';
 import { Formatter, OutputData } from './formatters/base.js';
@@ -59,11 +59,11 @@ export async function runScript(argv: string[] = process.argv.slice(2)) {
     const fileContents = new Map<number, string[]>();
     const filePaths = new Map<number, string>();
 
-    // Get all matching paths using fast-glob
+    // Get all matching paths using glob
     const matchingPaths = await glob(args.includeFileContent, {
       cwd: path.resolve(args.root),
       dot: true,
-      onlyFiles: true,
+      nodir: true,
       absolute: true,
     });
 
