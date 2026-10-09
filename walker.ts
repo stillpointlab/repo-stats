@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
-import glob from 'fast-glob';
+import { glob } from 'glob';
 
 import { CliArgs, FileSystemNode } from './types.js';
 
@@ -19,14 +19,13 @@ async function scanProject(args: CliArgs): Promise<FileSystemNode[]> {
   includePatterns.push(...args.includeDirs);
   excludePatterns.push(...args.excludeDirs);
 
-  // Get all matching paths using fast-glob
+  // Get all matching paths using glob
   const matchingPaths = await glob(includePatterns, {
     cwd: rootPath,
     dot: true,
-    onlyFiles: false,
     ignore: excludePatterns,
     absolute: true,
-    deep: args.maxDepth || Infinity,
+    maxDepth: args.maxDepth ? args.maxDepth + 1 : Infinity,
   });
 
   // Create a Set to store all paths we need to process (including parent directories)
@@ -54,7 +53,10 @@ async function scanProject(args: CliArgs): Promise<FileSystemNode[]> {
     const depth = relativePath.split(path.sep).length - 1;
 
     // Skip if we're at maxDepth and this is a directory
-    if (args.maxDepth !== undefined && depth >= args.maxDepth && stats.isDirectory()) {
+    if (
+      args.maxDepth !== undefined &&
+      (depth > args.maxDepth || (depth >= args.maxDepth && stats.isDirectory()))
+    ) {
       continue;
     }
 

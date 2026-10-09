@@ -98,7 +98,7 @@ describe('repo-stats integration tests', () => {
       '<spl:repository xmlns:spl="https://stillpointlab.com/schemas/repository/v1">'
     );
     expect(output).toContain('<spl:fileContents>');
-    expect(output).toContain('<spl:fileContent spl:id="8" spl:path="src/file1.ts">');
+    expect(output).toMatch(/<spl:fileContent spl:id="\d+" spl:path="src\/file1\.ts">/);
     expect(output).toContain('</spl:fileContent>');
     expect(output).toContain('</spl:fileContents>');
     expect(output).toContain('</spl:repository>');
